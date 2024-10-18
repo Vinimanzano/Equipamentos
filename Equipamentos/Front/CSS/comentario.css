@@ -1,0 +1,244 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    gap: 50px;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #349799;
+    padding: 10px;
+}
+
+.btn-equipamento {
+    display: flex;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #349799;
+}
+
+.sair {
+    display: flex;
+    font-size: 1.5rem;
+    color: #349799;
+}
+
+header img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 200px;
+    width: 100%;
+}
+
+main {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f2f5;
+}
+
+main h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #349799;
+}
+
+.btn-comment {
+    display: flex;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #349799;
+}
+
+.modal, .update {
+    display: none; 
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%; 
+    background-color: rgba(0, 0, 0, 0.6); 
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-content, .modal-update {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
+    margin: 10% auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: slideDown 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    color: #555;
+    cursor: pointer;
+    transition: color 0.2s;
+    z-index: 1001;
+}
+
+.close:hover {
+    color: #ff5c5c;
+}
+
+#comentarioInput {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    resize: none;
+    font-size: 1rem;
+}
+
+#comentarioInput::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+#updateInput {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    resize: none;
+    font-size: 1rem;
+}
+
+#updateInput::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+.btn-modal-comment {
+    width: 100%;
+    padding: 10px;
+    background-color: #44babc;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 0.3s;
+}
+
+.btn-modal-comment:hover {
+    background-color: #369a9a;
+}
+
+.perfilNome {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #349799;
+}
+
+#comentarios {
+    width: 100%;
+}
+
+.comentario-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    border-bottom: 2px solid #369a9a;
+}
+
+.btn-sm {
+    display: flex;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #349799;
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    main h1 {
+        font-size: 2rem;
+    }
+
+    .btn-comment {
+        font-size: 1rem;
+    }
+
+    .sair {
+        font-size: 1rem;
+    }
+
+    .close {
+        font-size: 24px;
+    }
+
+    #comentarioInput {
+        height: 60px;
+    }
+
+    .btn-modal-comment {
+        font-size: 1rem;
+    }
+}

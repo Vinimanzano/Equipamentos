@@ -1,0 +1,129 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #44babc;
+    color: #fff;
+    text-align: center;
+    height: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+header img {
+    max-width: 200px;
+    height: auto;
+}
+
+#senha {
+    width: 320px;
+    height: 60px;
+    border-radius: 10px;
+    padding-left: 10px;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.div-btn {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+.btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #f0f2f5;
+}
+
+.btn:active {
+    transform: scale(0.9);
+}
+
+.btnAll {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    background-color: #fff;
+    width: 350px;
+    height: 450px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.enviar, .clean {
+    font-size: 2rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.enviar:hover, .clean:hover {
+    background-color: #f0f2f5;
+}
+
+.enviar:active, .clean:active {
+    transform: scale(0.9);
+}
+
+@media (max-width: 768px) {
+    #senha {
+        width: 80%;
+        max-width: 300px;
+    }
+
+    .btnAll {
+        width: 90%;
+        max-width: 350px;
+        height: auto;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .div-btn {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
