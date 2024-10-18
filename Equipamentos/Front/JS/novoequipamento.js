@@ -1,7 +1,20 @@
+function updateStatus() {
+    const checkbox = document.getElementById('checkbox');
+    const statusText = document.getElementById('status');
+    
+    if (checkbox.checked) {
+        statusText.textContent = 'Ativo';
+    } else {
+        statusText.textContent = 'Não ativo';
+    }
+}
+
+document.getElementById('checkbox').addEventListener('change', updateStatus);
+
 const form = document.querySelector('.form');
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
+
     const status = form.checkbox.checked ? 'ativo' : 'desativo';
 
     const equipamento = {
@@ -27,7 +40,8 @@ form.addEventListener('submit', async (e) => {
         }
 
         const data = await response.json();
-        window.location.href = ('equipamentos.html')
+        
+        window.location.href = 'equipamentos.html';
         console.log(data);
     } catch (error) {
         console.error("Erro ao enviar o equipamento:", error);
