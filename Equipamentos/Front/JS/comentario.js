@@ -42,25 +42,28 @@ function renderComentarios(comentarios) {
             <p><strong>Data:</strong> ${new Date(comentario.data).toLocaleString()}</p>
         `;
 
-        const buttonContainer = document.createElement('div');
-        buttonContainer.style.display = 'flex';
-        buttonContainer.style.gap = '10px';
+        if (comentario.perfil === perfilId.perfilId) {
+            const buttonContainer = document.createElement('div');
+            buttonContainer.style.display = 'flex';
+            buttonContainer.style.gap = '10px';
 
-        const editButton = document.createElement('button');
-        editButton.innerHTML = '<i class="bi bi-pencil-square"></i>';
-        editButton.title = 'Editar Comentário';
-        editButton.className = 'btn btn-primary btn-sm';
-        editButton.onclick = () => openModalUpdate(comentario.id, comentario.comentario);
-        buttonContainer.appendChild(editButton);
+            const editButton = document.createElement('button');
+            editButton.innerHTML = '<i class="bi bi-pencil-square"></i>';
+            editButton.title = 'Editar Comentário';
+            editButton.className = 'btn btn-primary btn-sm';
+            editButton.onclick = () => openModalUpdate(comentario.id, comentario.comentario);
+            buttonContainer.appendChild(editButton);
 
-        const deleteButton = document.createElement('button');
-        deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
-        deleteButton.title = 'Deletar Comentário';
-        deleteButton.className = 'btn btn-danger btn-sm';
-        deleteButton.onclick = () => deleteComentario(comentario.id);
-        buttonContainer.appendChild(deleteButton);
+            const deleteButton = document.createElement('button');
+            deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
+            deleteButton.title = 'Deletar Comentário';
+            deleteButton.className = 'btn btn-danger btn-sm';
+            deleteButton.onclick = () => deleteComentario(comentario.id);
+            buttonContainer.appendChild(deleteButton);
 
-        comentarioDiv.appendChild(buttonContainer);
+            comentarioDiv.appendChild(buttonContainer);
+        }
+
         comentariosDiv.appendChild(comentarioDiv);
     });
 }
@@ -101,6 +104,8 @@ async function deleteComentario(comentarioId) {
         if (confirm("Deseja excluir o comentário?")) {
             const response = await fetch(`http://localhost:3000/comentarios/${comentarioId}`, {
                 method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ perfilId: perfilId.perfilId })
             });
 
             if (!response.ok) {
@@ -113,20 +118,21 @@ async function deleteComentario(comentarioId) {
     }
 }
 
+
 async function editComentario() {
     const comentarioAtualizado = {
         id: comentarioId,
-        comentario: document.getElementById('updateInput').value
+        comentario: document.getElementById('updateInput').value,
+        perfilId: perfilId.perfilId
     };
 
     try {
-        const response = await fetch(`http://localhost:3000/comentarios/${comentarioAtualizado.id}/${perfilId.perfilId}`, {
+        const response = await fetch(`http://localhost:3000/comentarios/${comentarioId}/${perfilId.perfilId}`, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(comentarioAtualizado),
         });
+
         if (!response.ok) {
             throw new Error(`Erro: ${response.status} - ${response.statusText}`);
         }
@@ -137,6 +143,7 @@ async function editComentario() {
         console.error('Erro ao editar comentário:', error);
     }
 }
+
 
 const modal = document.getElementById('modal');
 const openModalButton = document.getElementById('openModal');
