@@ -42,31 +42,33 @@ function renderComentarios(comentarios) {
             <p><strong>Data:</strong> ${new Date(comentario.data).toLocaleString()}</p>
         `;
 
-        if (comentario.perfil === perfilId.perfilId) {
-            const buttonContainer = document.createElement('div');
-            buttonContainer.style.display = 'flex';
-            buttonContainer.style.gap = '10px';
+        const buttonContainer = document.createElement('div');
+        buttonContainer.style.display = 'flex';
+        buttonContainer.style.gap = '10px';
 
+        if (comentario.perfil === perfilId.perfilId) {
             const editButton = document.createElement('button');
             editButton.innerHTML = '<i class="bi bi-pencil-square"></i>';
             editButton.title = 'Editar Comentário';
             editButton.className = 'btn btn-primary btn-sm';
             editButton.onclick = () => openModalUpdate(comentario.id, comentario.comentario);
             buttonContainer.appendChild(editButton);
+        }
 
+        if (comentario.perfil === perfilId.perfilId || perfilId.perfilId === 2) {
             const deleteButton = document.createElement('button');
             deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
             deleteButton.title = 'Deletar Comentário';
             deleteButton.className = 'btn btn-danger btn-sm';
             deleteButton.onclick = () => deleteComentario(comentario.id);
             buttonContainer.appendChild(deleteButton);
-
-            comentarioDiv.appendChild(buttonContainer);
         }
 
+        comentarioDiv.appendChild(buttonContainer);
         comentariosDiv.appendChild(comentarioDiv);
     });
 }
+
 
 
 form.addEventListener('submit', async (e) => {
@@ -101,22 +103,30 @@ form.addEventListener('submit', async (e) => {
 
 async function deleteComentario(comentarioId) {
     try {
+        const response = await fetch(`http://localhost:3000/comentarios/${comentarioId}`);
+        const comentario = await response.json();
+
+        if (comentario.perfil !== perfilId.perfilId && perfilId.perfilId !== 2) {
+            alert("Você não tem permissão para excluir este comentário.");
+            return;
+        }
+
         if (confirm("Deseja excluir o comentário?")) {
-            const response = await fetch(`http://localhost:3000/comentarios/${comentarioId}`, {
+            const deleteResponse = await fetch(`http://localhost:3000/comentarios/${comentarioId}`, {
                 method: 'DELETE',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ perfilId: perfilId.perfilId })
             });
 
-            if (!response.ok) {
-                throw new Error(`Erro: ${response.status} - ${response.statusText}`);
+            if (!deleteResponse.ok) {
+                throw new Error(`Erro: ${deleteResponse.status} - ${deleteResponse.statusText}`);
             }
+
             fetchComentarios();
         }
     } catch (error) {
         console.error('Erro ao deletar comentário:', error);
     }
 }
+
 
 
 async function editComentario() {
